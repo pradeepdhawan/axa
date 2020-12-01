@@ -1,0 +1,32 @@
+version: "3.8"
+services:
+
+  aumserver:
+    build: './aumserver'
+    ports:
+      - "7777:7777"
+    depends_on:
+      - zmq
+
+  positionserver:
+    build: './positionserver'
+    ports:
+      - "9999:9999"
+    depends_on:
+      - zmq
+
+  fillserver:
+    build: './fillserver'
+    ports:
+      - "8888:8888"
+    depends_on:
+      - zmq
+    deploy:
+      replicas: 10
+
+  controller:
+    build: './controller'
+    ports:
+      - "8080:8080"
+    depends_on:
+      - zmq
